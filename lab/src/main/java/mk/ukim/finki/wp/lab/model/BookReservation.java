@@ -2,16 +2,26 @@ package mk.ukim.finki.wp.lab.model;
 
 
 public class BookReservation {
+    public Long id;
     public String bookTitle;
     public String readerName;
     public String readerAddress;
     public Long numberOfCopies;
 
     public BookReservation(String bookTitle, String readerName, String readerAddress, Long numberOfCopies) {
+        this.id = (long) (Math.random() * 1000);
         this.bookTitle = bookTitle;
         this.readerName = readerName;
         this.readerAddress = readerAddress;
         this.numberOfCopies = numberOfCopies;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBookTitle() {
