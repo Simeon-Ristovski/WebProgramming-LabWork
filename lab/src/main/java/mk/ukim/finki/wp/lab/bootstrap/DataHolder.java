@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import mk.ukim.finki.wp.lab.model.Author;
 import mk.ukim.finki.wp.lab.model.Book;
 import mk.ukim.finki.wp.lab.model.BookReservation;
+import mk.ukim.finki.wp.lab.model.Gender;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class DataHolder {
     @PostConstruct
     public void DataHolder() {
         authors=new ArrayList<>();
-        Author author1=new Author("George", "Orwell", "United Kingdom", "George Orwell was an English novelist, essayist, journalist, and critic, best known for '1984' and 'Animal Farm'.");
-        Author author2=new Author("Haruki", "Murakami", "Japan", "Haruki Murakami is a Japanese writer known for his surreal narratives and novels such as 'Kafka on the Shore' and 'Norwegian Wood'.");
-        Author author3=new Author("Isabel", "Allende", "Chile", "Isabel Allende is a Chilean author famous for her novels blending magical realism and historical fiction, including 'The House of the Spirits'.");
+        Author author1=new Author("George", "Orwell", "United Kingdom", "George Orwell was an English novelist, essayist, journalist, and critic, best known for '1984' and 'Animal Farm'.", Gender.MALE);
+        Author author2=new Author("Haruki", "Murakami", "Japan", "Haruki Murakami is a Japanese writer known for his surreal narratives and novels such as 'Kafka on the Shore' and 'Norwegian Wood'.",Gender.MALE);
+        Author author3=new Author("Isabel", "Allende", "Chile", "Isabel Allende is a Chilean author famous for her novels blending magical realism and historical fiction, including 'The House of the Spirits'.",Gender.FEMALE);
         authors.add(author1);
         authors.add(author2);
         authors.add(author3);

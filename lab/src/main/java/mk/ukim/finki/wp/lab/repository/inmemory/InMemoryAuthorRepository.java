@@ -20,4 +20,16 @@ public class InMemoryAuthorRepository implements AuthorRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public void saveAuthor(Author author) {
+        DataHolder.authors.add(author);
+    }
+
+    @Override
+    public void deleteAuthor(Long id) {
+        Author author=findById(id);
+        DataHolder.authors.remove(author);
+
+    }
 }
