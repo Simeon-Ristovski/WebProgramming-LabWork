@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Book Reservation - Choose a Book</title>
@@ -37,52 +38,58 @@
 </header>
 
 <main>
-<!--    <section class="search-section">-->
-<!--        <form th:action="@{/}" method="GET">-->
-<!--            <h3>Search books:</h3>-->
+    <!--    <section class="search-section">-->
+    <!--        <form th:action="@{/}" method="GET">-->
+    <!--            <h3>Search books:</h3>-->
 
-<!--            <label>Title contains:</label>-->
-<!--            <label>-->
-<!--                <input type="text" name="search" th:value="${param.search}" placeholder="Enter title keyword">-->
-<!--            </label>-->
+    <!--            <label>Title contains:</label>-->
+    <!--            <label>-->
+    <!--                <input type="text" name="search" th:value="${param.search}" placeholder="Enter title keyword">-->
+    <!--            </label>-->
 
-<!--            <label>Minimum rating:</label>-->
-<!--            <label>-->
-<!--                <input type="number" name="rating" step="0.1" min="0" max="10" th:value="${param.rating}"-->
-<!--                       placeholder="e.g. 5.4">-->
-<!--            </label>-->
+    <!--            <label>Minimum rating:</label>-->
+    <!--            <label>-->
+    <!--                <input type="number" name="rating" step="0.1" min="0" max="10" th:value="${param.rating}"-->
+    <!--                       placeholder="e.g. 5.4">-->
+    <!--            </label>-->
 
-<!--            <input type="submit" style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue" value="Search">-->
-<!--        </form>-->
-<!--    </section>-->
+    <!--            <input type="submit" style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue" value="Search">-->
+    <!--        </form>-->
+    <!--    </section>-->
 
     <hr/>
 
 
+    <br>
+    <th:block sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/authors/add-author-form}" class="delete-btn"
+           style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue">Add
+            Author</a>
+    </th:block>
 
+    <br> <br>
+    <div th:each="author : ${authors}" class="book-option">
+        <!--            <label>-->
+        <!--                <input type="radio" name="title" th:value="${book.title}" required>-->
+        <!--            </label>-->
+        <p>
+            Name: <span th:text="${author.name}"></span>,
+            Surname: <span th:text="${author.surname}"></span>,
+            Country: <span th:text="${author.country}"></span>,
+            Biography: <span th:text="${author.biography}"></span>,
+            Gender: <span th:text="${author.gender}"></span>,
+        </p>
 
-        <br>
-        <a th:href="@{/authors/add-author-form}" class="delete-btn" style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue">Add Author</a>
-        <br> <br>
-        <div th:each="author : ${authors}" class="book-option">
-<!--            <label>-->
-<!--                <input type="radio" name="title" th:value="${book.title}" required>-->
-<!--            </label>-->
-            <p>
-                Name: <span th:text="${author.name}"></span>,
-                Surname: <span th:text="${author.surname}"></span>,
-                Country: <span th:text="${author.country}"></span>,
-                Biography: <span th:text="${author.biography}"></span>,
-                Gender: <span th:text="${author.gender}"></span>,
-            </p>
+        <div class="actions">
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/authors/edit-author-form/{id}(id=${author.id})}" class="btn"
+                   style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue">Edit</a>
+                <a th:href="@{/authors/delete-author/{id}(id=${author.id})}" class="delete-btn"
+                   style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue">Delete</a>
+            </th:block>
 
-            <div class="actions">
-                <a th:href="@{/authors/edit-author-form/{id}(id=${author.id})}" class="btn" style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue">Edit</a>
-                <a th:href="@{/authors/delete-author/{id}(id=${author.id})}" class="delete-btn" style="border: 2px solid grey;padding: 2px 10px; border-radius: 3px;font-size: 13px;text-decoration-color: black;background-color: lightblue">Delete</a>
-
-
-            </div>
         </div>
+    </div>
 
 </main>
 </body>

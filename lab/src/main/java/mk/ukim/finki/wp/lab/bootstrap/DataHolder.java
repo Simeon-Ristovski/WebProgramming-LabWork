@@ -1,12 +1,11 @@
 package mk.ukim.finki.wp.lab.bootstrap;
 
 import jakarta.annotation.PostConstruct;
-import mk.ukim.finki.wp.lab.model.Author;
-import mk.ukim.finki.wp.lab.model.Book;
-import mk.ukim.finki.wp.lab.model.BookReservation;
-import mk.ukim.finki.wp.lab.model.Gender;
+import mk.ukim.finki.wp.lab.model.*;
 import mk.ukim.finki.wp.lab.repository.mock.AuthorRepository;
 import mk.ukim.finki.wp.lab.repository.mock.BookRepository;
+import mk.ukim.finki.wp.lab.repository.mock.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,14 +18,22 @@ public class DataHolder {
     public static List<BookReservation> reservations;
     public final AuthorRepository authorRepository;
     public  final BookRepository bookRepository;
+    public  final UserRepository userRepository;
+    public final PasswordEncoder passwordEncoder;
 
-    public DataHolder(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public DataHolder(AuthorRepository authorRepository, BookRepository bookRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
     public void DataHolder() {
+        if (userRepository.findAll().isEmpty()) {
+            userRepository.save(new User("simeon.ristovski", passwordEncoder.encode("sr"), "Simeon", "Ristovski", Role.ROLE_USER));
+            userRepository.save(new User("admin", passwordEncoder.encode("admin"), "admin", "admin", Role.ROLE_ADMIN));
+        }
         authors=new ArrayList<>();
         Author author1=new Author("George", "Orwell", "United Kingdom", "George Orwell was an English novelist, essayist, journalist, and critic, best known for '1984' and 'Animal Farm'.", Gender.MALE);
         Author author2=new Author("Haruki", "Murakami", "Japan", "Haruki Murakami is a Japanese writer known for his surreal narratives and novels such as 'Kafka on the Shore' and 'Norwegian Wood'.",Gender.MALE);
@@ -49,4 +56,6 @@ public class DataHolder {
         bookRepository.save(new Book("Moby Dick", "Adventure", 4.1,author3));
         reservations = new ArrayList<>();
     }
+
+
 }

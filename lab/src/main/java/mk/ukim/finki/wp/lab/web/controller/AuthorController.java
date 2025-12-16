@@ -4,6 +4,7 @@ package mk.ukim.finki.wp.lab.web.controller;
 import mk.ukim.finki.wp.lab.model.Author;
 import mk.ukim.finki.wp.lab.model.Gender;
 import mk.ukim.finki.wp.lab.service.AuthorService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,6 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-
     @GetMapping("")
     public String getAuthorPage(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
@@ -30,7 +30,7 @@ public class AuthorController {
         model.addAttribute("authors", authors);
         return "listAuthors";
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/add-author-form")
     public String addAuthorPage(Model model) {
         model.addAttribute("genders",List.of(Gender.MALE,Gender.FEMALE));
@@ -47,7 +47,7 @@ public class AuthorController {
        authorService.saveAuthor(author);
         return "redirect:/authors";
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/edit-author-form/{id}")
     public String editAuthorForm(@PathVariable Long id, Model model) {
         Author author= authorService.findById(id).orElseThrow();
@@ -55,7 +55,7 @@ public class AuthorController {
         model.addAttribute("genders",List.of(Gender.MALE,Gender.FEMALE));
         return "author-form";
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping("/{id}")
     public String editAuthor(@PathVariable Long id,
                              @RequestParam String name,
@@ -66,7 +66,7 @@ public class AuthorController {
         authorService.editAuthor(id,name,surname, country,biography,gender);
         return "redirect:/authors";
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/delete-author/{id}")
     public String deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
@@ -92,8 +92,6 @@ public class AuthorController {
 //            return "redirect:/books?error=BookNotFound";
 //        }
 //    }
-
-
 
 
 }

@@ -1,15 +1,25 @@
 package mk.ukim.finki.wp.lab.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class BookReservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String bookTitle;
     public String readerName;
     public String readerAddress;
     public Long numberOfCopies;
 
+    public BookReservation() {
+    }
+
     public BookReservation(String bookTitle, String readerName, String readerAddress, Long numberOfCopies) {
-        this.id = (long) (Math.random() * 1000);
+//        this.id = (long) (Math.random() * 1000);
         this.bookTitle = bookTitle;
         this.readerName = readerName;
         this.readerAddress = readerAddress;
