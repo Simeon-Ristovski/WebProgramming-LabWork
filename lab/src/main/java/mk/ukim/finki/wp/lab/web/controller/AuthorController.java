@@ -50,7 +50,7 @@ public class AuthorController {
 
     @GetMapping("/edit-author-form/{id}")
     public String editAuthorForm(@PathVariable Long id, Model model) {
-        Author author= authorService.findById(id);
+        Author author= authorService.findById(id).orElseThrow();
         model.addAttribute("author", author);
         model.addAttribute("genders",List.of(Gender.MALE,Gender.FEMALE));
         return "author-form";

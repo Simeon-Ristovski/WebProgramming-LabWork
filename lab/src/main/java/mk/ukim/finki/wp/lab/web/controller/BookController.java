@@ -43,7 +43,7 @@ public class BookController {
                            @RequestParam String genre,
                            @RequestParam Double averageRating,
                            @RequestParam Long authorId) {
-        Book book = new Book(title, genre, averageRating, authorService.findById(authorId));
+        Book book = new Book(title, genre, averageRating, authorService.findById(authorId).orElseThrow());
         bookService.save(book);
         return "redirect:/books";
     }
@@ -91,7 +91,12 @@ public class BookController {
             return "redirect:/books?error=BookNotFound";
         }
     }
-
+    @GetMapping("/by-author/{authorId}")
+    public String getBooksByAuthor(@PathVariable Long authorId, Model model) {
+        List<Book> books = bookService.findAllByAuthorId(authorId);
+        model.addAttribute("books", books);
+        return "listBooks";
+    }
 
 
 

@@ -1,22 +1,38 @@
 package mk.ukim.finki.wp.lab.model;
 
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
     private String country;
     private String biography;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @OneToMany(mappedBy = "author")
+    private List<Book> books;
+
+
+    public Author() {
+    }
 
     public Author(String name, String surname, String country, String biography, Gender gender) {
-        this.id = (long) (Math.random() * 1000);
+//        this.id = (long) (Math.random() * 1000);
         this.name = name;
         this.surname = surname;
         this.country = country;
         this.biography = biography;
         this.gender = gender;
+        this.books = new ArrayList<>();
     }
 
     public Gender getGender() {

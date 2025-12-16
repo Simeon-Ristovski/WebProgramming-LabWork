@@ -2,8 +2,10 @@ package mk.ukim.finki.wp.lab.service.implementation;
 
 import mk.ukim.finki.wp.lab.model.Author;
 import mk.ukim.finki.wp.lab.model.Book;
-import mk.ukim.finki.wp.lab.repository.AuthorRepository;
-import mk.ukim.finki.wp.lab.repository.BookRepository;
+
+
+import mk.ukim.finki.wp.lab.repository.mock.AuthorRepository;
+import mk.ukim.finki.wp.lab.repository.mock.BookRepository;
 import mk.ukim.finki.wp.lab.service.BookService;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ public class BookServiceImpl implements BookService {
         this.authorRepository = authorRepository;
     }
 
+
     @Override
     public List<Book> listAll() {
         return bookRepository.findAll();
@@ -31,7 +34,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findById(Long id) {
-        return bookRepository.findById(id);
+        return bookRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -41,13 +44,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(Long id) {
-       bookRepository.delete(id);
+       bookRepository.deleteById(id);
     }
 
     @Override
     public Book edit(Long id, String title, String genre, double averageRating, Long authorId) {
-        Book book=bookRepository.findById(id);
-        Author author= authorRepository.findById(id);
+        Book book=bookRepository.findById(id).orElseThrow();
+        Author author= authorRepository.findById(id).orElseThrow()  ;
         if(book==null || author==null){
             return null;
         }
@@ -57,5 +60,10 @@ public class BookServiceImpl implements BookService {
         book.setTitle(title);
         bookRepository.save(book);
         return book;
+    }
+
+    @Override
+    public List<Book> findAllByAuthorId(Long authorId) {
+        return bookRepository.findAllByAuthor_Id(authorId);
     }
 }

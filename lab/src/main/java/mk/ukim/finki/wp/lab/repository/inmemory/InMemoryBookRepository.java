@@ -2,14 +2,13 @@ package mk.ukim.finki.wp.lab.repository.inmemory;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.Book;
-import mk.ukim.finki.wp.lab.repository.BookRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class InMemoryBookRepository implements BookRepository {
+public class InMemoryBookRepository implements BookRepositoryInMem {
 
     @Override
     public List<Book> findAll() {

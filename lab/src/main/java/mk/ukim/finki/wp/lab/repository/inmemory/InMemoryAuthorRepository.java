@@ -2,12 +2,11 @@ package mk.ukim.finki.wp.lab.repository.inmemory;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.Author;
-import mk.ukim.finki.wp.lab.repository.AuthorRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public class InMemoryAuthorRepository implements AuthorRepository {
+public class InMemoryAuthorRepository implements AuthorRepositoryInMem {
     @Override
     public List<Author> findAll() {
         return DataHolder.authors;

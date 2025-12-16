@@ -1,14 +1,14 @@
 package mk.ukim.finki.wp.lab.service;
 
 import mk.ukim.finki.wp.lab.model.Author;
-import mk.ukim.finki.wp.lab.model.Book;
 import mk.ukim.finki.wp.lab.model.Gender;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AuthorService {
     public List<Author> findAll();
-    public Author findById(Long id);
+    public Optional<Author> findById(Long id);
 
 
 

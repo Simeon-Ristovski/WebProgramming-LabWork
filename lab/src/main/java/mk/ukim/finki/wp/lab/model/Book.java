@@ -1,15 +1,18 @@
 package mk.ukim.finki.wp.lab.model;
 
 
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+@Entity
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String title;
     public String genre;
     public double averageRating;
-
+    @ManyToOne
     private Author author;
 
     public Author getAuthor() {
@@ -21,11 +24,14 @@ public class Book {
     }
 
     public Book(String title, String genre, double averageRating, Author author) {
-        this.id = (long) (Math.random() * 1000);
+//        this.id = (long) (Math.random() * 1000);
         this.title = title;
         this.genre = genre;
         this.averageRating = averageRating;
         this.author = author;
+    }
+
+    public Book() {
     }
 
     public Long getId() {

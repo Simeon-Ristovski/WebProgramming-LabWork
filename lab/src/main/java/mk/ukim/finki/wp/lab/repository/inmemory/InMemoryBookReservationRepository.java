@@ -2,7 +2,7 @@ package mk.ukim.finki.wp.lab.repository.inmemory;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.BookReservation;
-import mk.ukim.finki.wp.lab.repository.BookReservationRepository;
+import mk.ukim.finki.wp.lab.repository.mock.BookReservationRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
